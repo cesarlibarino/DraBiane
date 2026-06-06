@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desafio de Emagrecimento | Dra Biane Vieira</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#070723;
+      --bg2:#10103a;
+      --purple:#7a19ff;
+      --pink:#ff22c8;
+      --pink2:#ff4ed4;
+      --cyan:#45e8ff;
+      --yellow:#ffe66b;
+      --white:#ffffff;
+      --muted:#b8b7da;
+      --card:rgba(255,255,255,.075);
+      --line:rgba(255,255,255,.14);
+      --shadow:0 28px 80px rgba(0,0,0,.45);
+      --radius:28px;
+      --font:'Inter',sans-serif;
+      --display:'Bebas Neue',sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:var(--font);
+      background:
+        radial-gradient(circle at 14% 12%, rgba(255,34,200,.20), transparent 25%),
+        radial-gradient(circle at 86% 30%, rgba(122,25,255,.24), transparent 25%),
+        radial-gradient(circle at 50% 88%, rgba(69,232,255,.12), transparent 25%),
+        linear-gradient(180deg,#070723 0%,#090929 44%,#050518 100%);
+      color:var(--white);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:72px 72px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.8), transparent 90%);
+      z-index:-1;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
+    section{position:relative;padding:88px 0;overflow:hidden}
+
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(7,7,35,.72);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(18px);
+    }
+    .nav{height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.3px}
+    .brand-mark{width:42px;height:42px;border-radius:16px;background:linear-gradient(135deg,var(--pink),var(--purple));display:grid;place-items:center;box-shadow:0 15px 30px rgba(255,34,200,.25)}
+    .navlinks{display:flex;gap:26px;color:var(--muted);font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.8px}
+    .navlinks a:hover{color:var(--white)}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      padding:18px 28px;border-radius:999px;border:1px solid rgba(255,255,255,.15);
+      background:linear-gradient(135deg,var(--pink),var(--purple));
+      color:var(--white);font-size:13px;font-weight:900;text-transform:uppercase;letter-spacing:1px;
+      box-shadow:0 18px 45px rgba(255,34,200,.30);
+      transition:.28s ease;
+    }
+    .btn:hover{transform:translateY(-4px);box-shadow:0 26px 58px rgba(255,34,200,.42)}
+    .btn.alt{background:rgba(255,255,255,.08);box-shadow:none;color:var(--white)}
+    .btn.alt:hover{background:rgba(255,255,255,.14)}
+
+    .tag{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 15px;border-radius:999px;
+      background:rgba(255,34,200,.12);border:1px solid rgba(255,34,200,.28);
+      color:#ffd5f5;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:2px;
+    }
+    .tag:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--yellow);box-shadow:0 0 18px var(--yellow)}
+
+    .hero{padding:96px 0 80px;min-height:calc(100vh - 74px);display:flex;align-items:center}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:68px;align-items:center}
+    h1,.display{font-family:var(--display);font-weight:400;letter-spacing:.5px;text-transform:uppercase}
+    h1{font-size:94px;line-height:.9;margin-top:22px;text-shadow:0 0 30px rgba(255,34,200,.22)}
+    h1 span{display:block;color:var(--pink2);text-shadow:0 0 24px rgba(255,34,200,.50)}
+    .hero p{color:var(--muted);font-size:18px;line-height:1.7;max-width:650px;margin-top:22px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+
+    .deadline{display:inline-flex;align-items:center;gap:12px;margin-top:26px;padding:14px 18px;border-radius:18px;background:rgba(255,255,255,.08);border:1px solid var(--line);color:#f0eefe;font-weight:800;font-size:13px}
+    .deadline strong{color:var(--yellow)}
+
+    .price-card{margin-top:28px;display:flex;gap:20px;align-items:center;max-width:620px;padding:24px;border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.08);backdrop-filter:blur(14px)}
+    .price-card small{color:var(--muted);text-decoration:line-through;font-weight:700}
+    .price-card strong{font-family:var(--display);font-size:56px;line-height:.95;color:var(--white);display:block;text-shadow:0 0 22px rgba(255,255,255,.25)}
+    .price-card span{color:#ffd4f6;font-weight:800;font-size:14px}
+
+    .visual{position:relative;min-height:610px}
+    .glow{position:absolute;inset:auto;filter:blur(60px);opacity:.72;pointer-events:none}
+    .glow.one{width:260px;height:260px;border-radius:50%;background:var(--pink);right:12%;top:6%}
+    .glow.two{width:270px;height:270px;border-radius:50%;background:var(--purple);left:4%;bottom:8%}
+    .phone{
+      position:absolute;right:20px;top:20px;width:295px;border-radius:34px;padding:13px;background:#111;
+      box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.22);transform:rotate(4deg);
+    }
+    .screen{border-radius:24px;overflow:hidden;background:#fff;min-height:505px;color:#151515}
+    .screen-top{background:linear-gradient(135deg,#171748,#090922);padding:22px;color:white;text-align:center}
+    .screen-top b{font-family:var(--display);font-size:40px;color:var(--pink2);display:block;line-height:.9}
+    .screen-top span{font-size:12px;color:var(--muted);font-weight:800;text-transform:uppercase}
+    .screen-body{padding:18px;display:grid;gap:12px}
+    .progress{height:9px;background:#eee;border-radius:999px;overflow:hidden}.progress span{display:block;width:68%;height:100%;background:linear-gradient(90deg,var(--pink),var(--purple))}
+    .lesson{padding:13px;border:1px solid #eee;border-radius:14px;font-size:12px;font-weight:800;display:flex;justify-content:space-between}
+    .card-product{
+      position:absolute;left:10px;top:86px;width:355px;min-height:455px;border-radius:34px;padding:34px;
+      background:linear-gradient(160deg,#0f0f3b 0%,#08081f 52%,#331064 100%);
+      border:1px solid rgba(255,255,255,.18);box-shadow:var(--shadow);overflow:hidden;
+    }
+    .card-product:before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,34,200,.18);right:-90px;top:-70px;filter:blur(12px)}
+    .megaphone{font-size:68px;margin-bottom:18px;filter:drop-shadow(0 0 22px rgba(255,34,200,.55))}
+    .card-product h2{font-family:var(--display);font-size:72px;line-height:.88;text-transform:uppercase}
+    .card-product h2 span{color:var(--pink2)}
+    .card-product p{color:var(--muted);line-height:1.55;margin-top:18px}
+    .mini-proof{position:absolute;right:10px;bottom:20px;width:320px;display:grid;gap:12px}
+    .proof-img{border-radius:20px;background:rgba(255,255,255,.1);border:1px solid var(--line);padding:12px;display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;box-shadow:0 18px 42px rgba(0,0,0,.25)}
+    .avatar{width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,#78ffca,#ff4ed4)}
+    .proof-img b{font-size:13px}.proof-img p{font-size:12px;color:var(--muted);line-height:1.4;margin-top:3px}
+
+    .center{text-align:center;max-width:820px;margin:0 auto 54px}.center h2{margin-top:18px}.center p{margin:18px auto 0;color:var(--muted);line-height:1.7;font-size:17px;max-width:690px}
+    .title{font-family:var(--display);font-size:66px;line-height:.95;text-transform:uppercase;font-weight:400}.title span{color:var(--pink2)}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:0 18px 55px rgba(0,0,0,.18);transition:.28s ease;backdrop-filter:blur(12px)}
+    .card:hover{transform:translateY(-7px);border-color:rgba(255,34,200,.35)}
+    .icon{font-size:38px;margin-bottom:18px}.card h3{font-size:22px;margin-bottom:10px}.card p{color:var(--muted);font-size:14.5px;line-height:1.65}
+
+    .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:58px;align-items:center}
+    .panel{background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:34px;padding:36px;box-shadow:var(--shadow)}
+    .list{display:grid;gap:14px;margin-top:24px}.item{display:flex;gap:12px;align-items:flex-start;color:#e9e7ff;line-height:1.55}.check{width:24px;height:24px;border-radius:50%;background:var(--pink);display:grid;place-items:center;font-size:13px;font-weight:900;flex:0 0 24px;box-shadow:0 0 18px rgba(255,34,200,.45)}
+
+    .modules{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:48px}.module{padding:26px}.module strong{font-family:var(--display);font-size:44px;color:var(--pink2);display:block;margin-bottom:10px}.module h3{font-size:18px;margin-bottom:8px}.module p{font-size:13.5px;color:var(--muted);line-height:1.55}
+
+    .offer{background:linear-gradient(180deg,rgba(255,34,200,.10),rgba(122,25,255,.08));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .offer-box{max-width:980px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;background:#fff;color:#171727;border-radius:38px;padding:42px;box-shadow:var(--shadow)}
+    .offer-box .title{color:#12122e}.offer-box p{color:#5f6073;line-height:1.65;margin-top:15px}
+    .checkout{background:#f7f7fb;border:1px solid #e7e7f1;border-radius:30px;padding:28px;text-align:center}.checkout small{display:block;text-transform:uppercase;color:#6d6e80;letter-spacing:1.8px;font-weight:900;font-size:11px}.checkout .old{margin-top:14px;color:#7a7b88;text-decoration:line-through;font-weight:800}.checkout strong{font-family:var(--display);font-size:68px;line-height:.95;color:#171727;display:block;margin:6px 0}.checkout span{display:block;color:#ff22c8;font-weight:900;margin-bottom:20px}.checkout .btn{width:100%}
+
+    .faq{max-width:860px;margin:0 auto}details{background:var(--card);border:1px solid var(--line);border-radius:20px;margin-bottom:14px;overflow:hidden}summary{cursor:pointer;list-style:none;padding:22px 24px;font-weight:900;display:flex;justify-content:space-between;gap:20px}summary:after{content:'+';color:var(--pink);font-size:24px}details[open] summary:after{content:'−'}details p{padding:0 24px 24px;color:var(--muted);line-height:1.65;font-size:14.5px}
+    footer{padding:48px 0 34px;background:#040411;border-top:1px solid var(--line);color:rgba(255,255,255,.62);font-size:13px}.footer{display:flex;justify-content:space-between;gap:26px;align-items:center}.credit{font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:white}
+
+    @media(max-width:1024px){.navlinks{display:none}.hero-grid,.split,.offer-box{grid-template-columns:1fr}.hero{text-align:center}.hero p{margin-left:auto;margin-right:auto}.hero-actions{justify-content:center}.price-card{margin-left:auto;margin-right:auto;text-align:left}.visual{order:-1;min-height:560px;max-width:650px;margin:auto}.cards{grid-template-columns:1fr 1fr}.modules{grid-template-columns:1fr 1fr}}
+    @media(max-width:720px){.container{padding:0 18px}section{padding:66px 0}.nav{height:66px}.brand span:last-child{display:none}.hero{padding-top:54px}.visual{min-height:auto;display:grid;gap:18px}.phone,.card-product,.mini-proof{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:100%;transform:none}.phone{max-width:330px;margin:0 auto}.card-product{min-height:auto}.card-product h2{font-size:58px}h1{font-size:64px}.title{font-size:48px}.price-card{flex-direction:column;text-align:center}.btn{width:100%;padding:17px 20px}.cards,.modules{grid-template-columns:1fr}.offer-box{padding:26px;border-radius:28px}.checkout strong{font-size:56px}.footer{flex-direction:column;text-align:center}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#inicio"><span class="brand-mark">⚡</span><span>Dra Biane Vieira</span></a>
+      <nav class="navlinks">
+        <a href="#desafio">O desafio</a>
+        <a href="#conteudo">Conteúdo</a>
+        <a href="#bonus">Bônus</a>
+        <a href="#comprar">Comprar</a>
+      </nav>
+      <a class="btn" href="https://pay.kiwify.com.br/7Sla8Y9">Garantir vaga</a>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="tag">Desafio de emagrecimento</span>
+          <h1>Transforme seu corpo <span>em 21 dias</span></h1>
+          <p>Um desafio prático com cardápios, conteúdos diários, tarefas simples e suporte da nutricionista para você emagrecer com constância, sem dieta maluca e sem restrições impossíveis.</p>
+          <div class="deadline"><strong>Oferta por tempo limitado</strong> • vagas para a próxima turma</div>
+          <div class="hero-actions">
+            <a class="btn" href="https://pay.kiwify.com.br/7Sla8Y9">Quero participar agora</a>
+            <a class="btn alt" href="#conteudo">Ver o que está incluso</a>
+          </div>
+          <div class="price-card">
+            <div>
+              <small>De R$ 199,90</small>
+              <strong>R$ 97,90</strong>
+              <span>ou 12x de R$ 10,13</span>
+            </div>
+            <p style="margin:0;color:var(--muted);font-size:14px;line-height:1.55">Acesso ao desafio com materiais, acompanhamento e direcionamento para sair do efeito sanfona.</p>
+          </div>
+        </div>
+
+        <div class="visual">
+          <div class="glow one"></div><div class="glow two"></div>
+          <div class="card-product">
+            <div class="megaphone">📣</div>
+            <h2>Desafio de <span>Emagrecimento</span></h2>
+            <p>21 dias para destravar seus resultados antes das festas de final de ano.</p>
+          </div>
+          <div class="phone">
+            <div class="screen">
+              <div class="screen-top">
+                <b>21 DIAS</b>
+                <span>Área de membros</span>
+              </div>
+              <div class="screen-body">
+                <div class="progress"><span></span></div>
+                <div class="lesson">Cardápio fase 1 <span>✓</span></div>
+                <div class="lesson">Conteúdo diário <span>▶</span></div>
+                <div class="lesson">Desafio do dia <span>⚡</span></div>
+                <div class="lesson">Suporte da nutri <span>💬</span></div>
+                <div class="lesson">E-book bônus <span>🎁</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="mini-proof">
+            <div class="proof-img"><div class="avatar"></div><div><b>Resultados reais</b><p>Antes e depois, relatos de alunas e evolução durante o desafio.</p></div></div>
+            <div class="proof-img"><div class="avatar"></div><div><b>Sem terrorismo alimentar</b><p>Estratégia para emagrecer com rotina possível e alimentação organizada.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="desafio">
+      <div class="container">
+        <div class="center">
+          <span class="tag">Para quem é</span>
+          <h2 class="title">Para quem quer emagrecer sem voltar para o <span>efeito sanfona</span>.</h2>
+          <p>O desafio foi pensado para mulheres que querem orientação prática, motivação diária e um plano claro para começar a ver resultado em poucos dias.</p>
+        </div>
+        <div class="cards">
+          <div class="card"><div class="icon">🔥</div><h3>Quer perder peso</h3><p>Para quem precisa de um plano simples para voltar ao foco e reduzir medidas com consistência.</p></div>
+          <div class="card"><div class="icon">🥗</div><h3>Cansou de dieta restritiva</h3><p>Sem passar fome, sem cortar tudo e sem viver em guerra com a comida.</p></div>
+          <div class="card"><div class="icon">💪</div><h3>Precisa de direção</h3><p>Você recebe tarefas, cardápios e suporte para saber exatamente o que fazer no dia a dia.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conteudo">
+      <div class="container split">
+        <div class="panel">
+          <span class="tag">O que teremos no desafio</span>
+          <h2 class="title" style="margin-top:18px">Tudo para começar com <span>clareza</span>.</h2>
+          <p style="color:var(--muted);line-height:1.7;margin-top:18px">Materiais objetivos e acompanhamento para transformar intenção em ação durante 21 dias.</p>
+        </div>
+        <div class="list">
+          <div class="item"><span class="check">✓</span><span><b>3 cardápios</b> — um para cada fase do desafio.</span></div>
+          <div class="item"><span class="check">✓</span><span><b>Conteúdos diários</b> ensinando o passo a passo do emagrecimento saudável.</span></div>
+          <div class="item"><span class="check">✓</span><span><b>Desafios diários</b> para manter foco e constância.</span></div>
+          <div class="item"><span class="check">✓</span><span><b>Suporte da nutricionista</b> durante o processo.</span></div>
+          <div class="item"><span class="check">✓</span><span><b>E-book bônus</b> com doces saudáveis, saladas e molhos.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bonus">
+      <div class="container">
+        <div class="center">
+          <span class="tag">Como funciona</span>
+          <h2 class="title">Você entra, segue o plano e faz o desafio acontecer.</h2>
+        </div>
+        <div class="modules">
+          <div class="card module"><strong>01</strong><h3>Inscrição</h3><p>Garanta sua vaga e receba o acesso ao desafio.</p></div>
+          <div class="card module"><strong>02</strong><h3>Cardápios</h3><p>Use os cardápios para organizar suas refeições.</p></div>
+          <div class="card module"><strong>03</strong><h3>Conteúdos</h3><p>Aprenda o passo a passo de forma simples e direta.</p></div>
+          <div class="card module"><strong>04</strong><h3>Suporte</h3><p>Conte com orientação para seguir com mais segurança.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="offer" id="comprar">
+      <div class="container">
+        <div class="offer-box">
+          <div>
+            <span class="tag">Super promoção</span>
+            <h2 class="title" style="margin-top:18px">Entre para o Desafio de Emagrecimento</h2>
+            <p>Uma oportunidade para transformar sua rotina, emagrecer com estratégia e chegar mais confiante aos próximos meses.</p>
+            <div class="list">
+              <div class="item" style="color:#23233a"><span class="check">✓</span><span>Cardápios práticos para seguir no dia a dia.</span></div>
+              <div class="item" style="color:#23233a"><span class="check">✓</span><span>Conteúdos e desafios por 21 dias.</span></div>
+              <div class="item" style="color:#23233a"><span class="check">✓</span><span>Bônus com receitas saudáveis.</span></div>
+            </div>
+          </div>
+          <div class="checkout">
+            <small>Oferta por tempo limitado</small>
+            <div class="old">De R$ 199,90</div>
+            <strong>R$ 97,90</strong>
+            <span>ou 12x de R$ 10,13</span>
+            <a class="btn" href="https://pay.kiwify.com.br/7Sla8Y9">Aproveitar promoção</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="center"><span class="tag">Dúvidas frequentes</span><h2 class="title">Antes de garantir sua vaga</h2></div>
+        <div class="faq">
+          <details><summary>O desafio substitui uma consulta individual?</summary><p>Não. É um programa coletivo e educativo. Para condutas específicas, exames e prescrições individualizadas, o ideal é consulta nutricional.</p></details>
+          <details><summary>Preciso fazer dieta restritiva?</summary><p>Não. A proposta é organizar sua alimentação, criar constância e aplicar estratégias possíveis para a rotina.</p></details>
+          <details><summary>Como recebo o acesso?</summary><p>Após a compra pela Kiwify, você recebe as instruções de acesso no e-mail cadastrado.</p></details>
+          <details><summary>Posso pagar parcelado?</summary><p>Sim. Na página de pagamento, aparece a opção de parcelamento em até 12x.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer">
+      <div><b>Dra Biane Vieira Nutricionista</b><br>Nutrição online e presencial • Goiânia</div>
+      <div class="credit">Feito por DORYAN</div>
+    </div>
+  </footer>
+</body>
+</html>
